@@ -58,12 +58,9 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Perfil'),
             selected: selectedIndex == 1,
             onTap: () {
-              onItemTapped(1);
-              Navigator.pop(context); // Cierra el drawer después de seleccionar
-            },
-          ),
-        ],
-      ),
+        Navigator.pop(context);
+        onItemTapped(index);
+      },
     );
   }
 } 

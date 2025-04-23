@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_drawer.dart';
-import 'medicamentos_screen.dart';
-import 'perfil_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+class CustomDrawer extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemTapped;
   
-  final List<Widget> _screens = [
-    const MedicamentosScreen(),
-    const PerfilScreen(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  const CustomDrawer({
+    super.key,
+    required this.selectedIndex,
+    required this.onItemTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Icon(Icons.person, color: Colors.blue),
             ),
           ],
-        ),
       ),
       drawer: CustomDrawer(
         selectedIndex: _selectedIndex,

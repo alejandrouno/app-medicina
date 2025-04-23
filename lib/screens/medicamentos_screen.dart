@@ -85,12 +85,6 @@ class MedicamentosScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Aquí iría la funcionalidad para agregar un nuevo medicamento
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 } 
