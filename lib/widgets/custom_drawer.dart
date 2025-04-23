@@ -5,62 +5,58 @@ class CustomDrawer extends StatelessWidget {
   final Function(int) onItemTapped;
 
   const CustomDrawer({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
+      child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          // Encabezado del drawer
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    height: 80,
-                    errorBuilder: (context, error, stackTrace) => 
-                      const Icon(Icons.local_hospital, size: 80, color: Colors.white),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'App Medicina',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // Opción de Medicamentos
-          ListTile(
-            leading: const Icon(Icons.medication),
-            title: const Text('Medicamentos'),
-            selected: selectedIndex == 0,
-            onTap: () {
-              onItemTapped(0);
-              Navigator.pop(context); // Cierra el drawer después de seleccionar
-            },
-          ),
-          // Opción de Perfil
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Perfil'),
-            selected: selectedIndex == 1,
-            onTap: () {
+          _buildHeader(context),
+          _buildMenuItem(0, Icons.medication, 'Medicamentos', context),
+          _buildMenuItem(1, Icons.person, 'Perfil', context),
+          const Divider(),
+          _buildMenuItem(2, Icons.settings, 'Configuración', context),
+          _buildMenuItem(3, Icons.help, 'Ayuda', context),
+          _buildMenuItem(4, Icons.logout, 'Cerrar Sesión', context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return UserAccountsDrawerHeader(
+      accountName: const Text('Usuario Ejemplo'),
+      accountEmail: const Text('usuario@example.com'),
+      currentAccountPicture: const CircleAvatar(
+        backgroundColor: Colors.white,
+        child: Icon(Icons.person, size: 40, color: Colors.blue),
+      ),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade800,
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(int index, IconData icon, String title, BuildContext context) {
+    final bool isSelected = selectedIndex == index;
+    return ListTile(
+      leading: Icon(icon, color: isSelected ? Colors.blue.shade800 : Colors.grey),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: isSelected ? Colors.blue.shade800 : Colors.black,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+      onTap: () {
         Navigator.pop(context);
         onItemTapped(index);
       },
     );
   }
-} 
+}

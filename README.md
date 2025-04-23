@@ -1,13 +1,17 @@
 # App Medicina
 
-Aplicación móvil para gestión de medicamentos y perfil médico desarrollada con Flutter.
+Aplicación móvil para la gestión de medicamentos y perfiles médicos, desarrollada con Flutter.
 
 ## Características
 
-- Menú lateral desplegable con opciones de Medicamentos y Perfil
-- Listado de medicamentos con detalles
-- Perfil de usuario con información personal
-- Interfaz intuitiva y moderna
+- **Autenticación de usuarios:** Permite a los usuarios registrarse e iniciar sesión de forma segura.
+- **Roles de usuario:** Detecta si el usuario es un administrador (médico), mostrando una interfaz adicional para el envío de prescripciones y medicamentos.
+- **Gestión de medicamentos:**
+    - Listado detallado de medicamentos.
+    - **Nota:** Los medicamentos son enviados por el administrador (médico) a los pacientes.
+- **Perfil médico:**
+    - Información personal del usuario.
+- **Interfaz de usuario:** Intuitiva y moderna.
 
 ## Requisitos
 
