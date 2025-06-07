@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_medicina/widgets/custom_drawer.dart';
-import 'package:app_medicina/screens/medicamentos_screen.dart';
-import 'package:app_medicina/screens/perfil_screen.dart';
+import 'package:app_medicina/screens/paciente/medicamentos_screen.dart';
+import 'package:app_medicina/screens/paciente/perfil_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  final Color _primaryColor = Colors.blue.shade800;
+  final Color _primaryColor = const Color.from(alpha: 1, red: 0.086, green: 0.094, blue: 0.62);
 
   final List<Widget> _screens = const [
     MedicamentosScreen(),

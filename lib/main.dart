@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:app_medicina/screens/login_screen.dart';
-import 'package:app_medicina/screens/register_screen.dart';
-import 'package:app_medicina/screens/home_screen.dart';
-import 'package:app_medicina/screens/admin_screen.dart';
+import 'package:app_medicina/screens/gestor_usuario/login_screen.dart';
+import 'package:app_medicina/screens/paciente/home_screen.dart';
+import 'package:app_medicina/screens/admin/admin_screen.dart';
+import 'package:app_medicina/screens/medico/medico_screen.dart'; // Corrected import path
 
 void main() => runApp(const MyApp());
 
+// Existing MyApp class definition remains
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -19,26 +20,41 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/login',
-      routes: {
-        '/login': (context) => LoginScreen(
-              onLoginSuccess: (isAdmin) {
+      onGenerateRoute: (settings) {
+        // Manejar rutas con parámetros
+        if (settings.name!.startsWith('/login')) {
+          return MaterialPageRoute(
+            builder: (_) => LoginScreen(
+              onLoginSuccess: (userRole) {
                 Navigator.pushReplacementNamed(
-                  context,
-                  isAdmin ? '/admin' : '/home',
+                  _,
+                  userRole == 'admin' ? '/admin' : userRole == 'medico' ? '/medico' : '/home',
                 );
               },
             ),
-        '/register': (context) => RegisterScreen(
-              onLoginSuccess: (isAdmin) {
-                Navigator.pushReplacementNamed(
-                  context,
-                  isAdmin ? '/admin' : '/home',
-                );
+          );
+        }
+        return null;
+      },
+      routes: {
+        '/login': (context) => LoginScreen(
+              onLoginSuccess: (userRole) {
+                Navigator.pushReplacementNamed(context,
+                  userRole == 'admin' ? '/admin' : userRole == 'medico' ? '/medico' : '/home',
+ );
               },
             ),
         '/home': (context) => const HomeScreen(),
-        '/admin': (context) => const AdminScreen(),
+        '/admin': (context) => const AdminScreen(), // Assuming this is the correct AdminScreen
+        '/medico': (context) => const MedicoScreen(), // Use the prefixed MedicoScreen
       },
+      onUnknownRoute: (settings) => MaterialPageRoute( // Manejar rutas no definidas
+        builder: (_) => Scaffold(
+          body: Center(
+            child: Text('Ruta no encontrada: ${settings.name}'),
+          ),
+        ),
+      ),
     );
   }
 }
